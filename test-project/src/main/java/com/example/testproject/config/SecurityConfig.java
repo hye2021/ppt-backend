@@ -1,5 +1,6 @@
 package com.example.testproject.config;
 
+import com.example.testproject.security.OAuth2LoginSuccessHandler;
 import com.example.testproject.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,22 +15,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomOAuth2UserService customOAuth2UserService;
+  private final CustomOAuth2UserService customOAuth2UserService;
+  private final OAuth2LoginSuccessHandler successHandler;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(CsrfConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
-                .anyRequest().authenticated() // 나머지는 인증 필요
-                )
-                .oauth2Login(oauth -> oauth
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService) // 사용자 정보 처리
-                        )
-                        .defaultSuccessUrl("/login/success", true) // 로그인 성공 시 이동할 경로
-                );
-        return http.build();
-    }
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http,
+      OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler) throws Exception {
+    http
+        .csrf(CsrfConfigurer::disable)
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
+            .anyRequest().authenticated() // 나머지는 인증 필요
+        )
+        .oauth2Login(oauth -> oauth
+            .userInfoEndpoint(userInfo -> userInfo
+                .userService(customOAuth2UserService) // 사용자 정보 처리
+            )
+            .successHandler(successHandler)
+        );
+    return http.build();
+  }
 }
