@@ -51,7 +51,8 @@ dependencies {
     * */
 //    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 //    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web' // 웹 개발에 필요한 의존성을 관리해주는 starter 프로젝트
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // 웹 개발에 필요한 의존성을 관리해주는 starter 프로젝트
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
@@ -66,6 +67,10 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // JWT
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2' // 테스트용 DB (또는 mysql, postgresql 등)
 }
 
 // 테스트 태스크 설정
