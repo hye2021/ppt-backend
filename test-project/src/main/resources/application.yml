@@ -20,6 +20,7 @@ spring:
     url: jdbc:mysql://localhost:3306/ppt
     username: root
     password: 0125
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:

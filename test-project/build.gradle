@@ -35,6 +35,7 @@ configurations {
 
 repositories { // 사용할 라이브러리들이 저장되어 있는 Maven Repository의 위치를 지정
     mavenCentral() // gradle에서 제공하는 기본적인 라이브러리 저장소인 Maven Central Repository를 사용함
+    maven { url 'https://repo1.maven.org/maven2' }
 }
 
 ext { // 전역 변수처럼 사용할 수 있는 값
@@ -68,9 +69,10 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-    // JPA
+    // JPA & DB
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'com.h2database:h2' // 테스트용 DB (또는 mysql, postgresql 등)
+    implementation 'mysql:mysql-connector-j:8.0.33'
 }
 
 // 테스트 태스크 설정
