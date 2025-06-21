@@ -1,10 +1,10 @@
- # .github/workflows/discord-notify.yml
+# .github/workflows/discord-notify.yml
 name: Discord Notification
 
 on:
   push:
     branches:
-      - main  # main 브랜치에 push 될 때만 실행
+      - main # main 브랜치에 push 될 때만 실행
 
 jobs:
   notify:
@@ -19,5 +19,5 @@ jobs:
           COMMIT_URL="${{ github.event.head_commit.url }}"
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"📦 **New Commit Pushed!**\n👤 Author: ${COMMIT_AUTHOR}\n💬 Message: ${COMMIT_MESSAGE}\n🔗 [View Commit](${COMMIT_URL})\"}" \
+               -d "{\"content\": \"📦 **New Commit Pushed!**\n Author: ${COMMIT_AUTHOR}\n Message: ${COMMIT_MESSAGE}\n ↗link: <${COMMIT_URL}>\"}" \
                $DISCORD_WEBHOOK_URL
